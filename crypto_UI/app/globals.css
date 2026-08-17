@@ -1,0 +1,174 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-card-3: var(--card-3);
+  --color-card-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-bright: var(--bright);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-ring: var(--primary);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+
+:root {
+  color-scheme: dark;
+  --background: #02050a;
+  --surface-1: #07111f;
+  --surface-2: #0a1422;
+  --foreground: #f3f7ff;
+  --card: #0d1928;
+  --card-2: #101d2e;
+  --card-3: #122238;
+  --border: rgba(90, 150, 220, 0.2);
+  --border-strong: rgba(90, 150, 220, 0.45);
+  --primary: #3b82f6;
+  --primary-foreground: #f3f7ff;
+  --bright: #60a5fa;
+  --muted-foreground: #9baec4;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #fb7185;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  ::selection {
+    background: rgba(59, 130, 246, 0.35);
+  }
+}
+
+/* Utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Subtle radar/grid background used sparingly */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(90, 150, 220, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(90, 150, 220, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.glow-primary {
+  box-shadow:
+    0 0 0 1px var(--border-strong),
+    0 8px 40px -12px rgba(59, 130, 246, 0.45);
+}
+
+/* Cursor spotlight effect (toggle via settings) */
+.cursor-spotlight::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    240px circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+    rgba(59, 130, 246, 0.08),
+    transparent 70%
+  );
+  transition: opacity 0.3s;
+}
+
+/* Reduce motion global switch (settings) */
+.reduce-motion * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* High contrast (settings) */
+.high-contrast {
+  --border: rgba(120, 180, 255, 0.5);
+  --border-strong: rgba(150, 200, 255, 0.75);
+  --muted-foreground: #c4d4e8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes crypto-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: crypto-fade-up 0.5s ease both;
+}
+
+@keyframes crypto-headlight {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(30);
+  }
+}
+
+@keyframes crypto-pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+.animate-pulse-ring {
+  animation: crypto-pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes crypto-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
