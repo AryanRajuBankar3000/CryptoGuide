@@ -1,112 +1,235 @@
 {
-  "SecureBoot": {
-    "useCase": "Secure Boot",
-    "recommendedAlgorithm": "RSA-3072 or ECDSA P-256",
-    "rationale": "Secure Boot requires a well-vetted signature scheme with hardware support across most automotive MCUs. ECDSA P-256 is preferred for constrained hardware due to smaller key size.",
-    "keyLength": "3072-bit (RSA) or 256-bit (ECDSA)",
-    "mode": "Digital Signature",
-    "securityLifespan": "Secure until ~2030 (RSA-3072), reassess for lifetimes beyond 15 years",
-    "riskFlags": ["Long vehicle lifetimes exceed current algorithm confidence window"],
-    "standardsRefs": ["NIST FIPS 186-5", "ISO 21434"],
-    "pqcMigrationPath": "Migrate to CRYSTALS-Dilithium if vehicle lifetime exceeds 15 years or hardware supports PQC by production date"
+  "version": "2.0.0",
+  "metadata": {
+    "description": "Consolidated Automotive Cryptographic Knowledge Base",
+    "updated": "2026-08",
+    "standards_aligned": [
+      "ISO/SAE 21434",
+      "UNECE WP.29 R155/R156",
+      "NIST FIPS 186-5",
+      "NIST FIPS 203/204/205",
+      "AUTOSAR SecOC"
+    ]
   },
-  "Integrity": {
-    "useCase": "Integrity",
-    "recommendedAlgorithm": "SHA-256 or SHA-3-256",
-    "rationale": "SHA-256 is the industry-standard hash for integrity checks with broad hardware acceleration support in automotive SoCs.",
-    "keyLength": "N/A (256-bit output)",
-    "mode": "Cryptographic Hash",
-    "securityLifespan": "Secure beyond 2035; no known practical collision attacks",
-    "riskFlags": [],
-    "standardsRefs": ["NIST FIPS 180-4", "ISO 21434"],
-    "pqcMigrationPath": "Not quantum-vulnerable in the same way as asymmetric crypto; Grover's algorithm only halves effective strength, so SHA-256 remains adequate"
-  },
-  "Communication": {
-    "useCase": "Communication (V2X)",
-    "recommendedAlgorithm": "AES-128-GCM with ECDHE (P-256) key exchange",
-    "rationale": "AES-GCM provides authenticated encryption suited to real-time V2X messaging; ECDHE gives forward secrecy for session keys.",
-    "keyLength": "128-bit (AES), 256-bit (ECDHE)",
-    "mode": "Authenticated Encryption",
-    "securityLifespan": "Secure until ~2030, monitor NIST PQC transition timeline",
-    "riskFlags": ["Key exchange (ECDHE) is quantum-vulnerable; symmetric AES layer is not"],
-    "standardsRefs": ["IEEE 1609.2", "NIST SP 800-38D"],
-    "pqcMigrationPath": "Replace ECDHE with CRYSTALS-Kyber for post-quantum key exchange; AES-128 can remain"
-  },
-  "KeyExchange": {
-    "useCase": "Key Exchange",
-    "recommendedAlgorithm": "ECDH P-256 (short-term), CRYSTALS-Kyber (long-term)",
-    "rationale": "ECDH is efficient and widely supported today, but is fully broken by a sufficiently large quantum computer (Shor's algorithm), making it unsuitable alone for 15-20 year vehicle lifetimes.",
-    "keyLength": "256-bit (ECDH), Kyber-768 (PQC)",
-    "mode": "Key Agreement",
-    "securityLifespan": "ECDH secure short-term only; not recommended standalone beyond 2030 for new designs",
-    "riskFlags": ["High risk for long-lifetime vehicles due to 'harvest now, decrypt later' quantum threat"],
-    "standardsRefs": ["NIST SP 800-56A", "NIST PQC Round 3 (Kyber)"],
-    "pqcMigrationPath": "Adopt hybrid ECDH+Kyber immediately for any system with lifetime beyond 10 years"
-  },
-  "DataEncryption": {
-    "useCase": "Data Encryption",
-    "recommendedAlgorithm": "AES-256-GCM",
-    "rationale": "AES-256 provides strong margin against brute-force and partial quantum speedup (Grover's algorithm), suitable for encrypting stored vehicle data.",
-    "keyLength": "256-bit",
-    "mode": "Authenticated Encryption (GCM)",
-    "securityLifespan": "Secure beyond 2040 even accounting for quantum speedup",
-    "riskFlags": [],
-    "standardsRefs": ["NIST FIPS 197", "NIST SP 800-38D"],
-    "pqcMigrationPath": "No migration needed; symmetric AES-256 is considered quantum-resistant with sufficient key length"
-  },
-  "MAC_SecOC": {
-    "useCase": "MAC/SecOC",
-    "recommendedAlgorithm": "AES-CMAC or CBC-MAC per AUTOSAR SecOC",
-    "rationale": "AUTOSAR SecOC standardizes AES-CMAC for in-vehicle message authentication with low overhead suited to CAN/CAN-FD bandwidth limits.",
-    "keyLength": "128-bit",
-    "mode": "Message Authentication Code",
-    "securityLifespan": "Secure until ~2035 for in-vehicle bus use",
-    "riskFlags": ["Key freshness management is critical to prevent replay attacks"],
-    "standardsRefs": ["AUTOSAR SecOC", "NIST SP 800-38B"],
-    "pqcMigrationPath": "Symmetric MAC not significantly quantum-vulnerable; no urgent migration needed"
-  },
-  "Signatures": {
-    "useCase": "Signatures",
-    "recommendedAlgorithm": "ECDSA P-256 or Ed25519",
-    "rationale": "Ed25519 offers strong security with fast verification, useful for OTA update signing where verification speed on constrained ECUs matters.",
-    "keyLength": "256-bit",
-    "mode": "Digital Signature",
-    "securityLifespan": "Secure until ~2030",
-    "riskFlags": ["Fully broken by large-scale quantum computers via Shor's algorithm"],
-    "standardsRefs": ["RFC 8032 (Ed25519)", "NIST FIPS 186-5"],
-    "pqcMigrationPath": "Migrate to CRYSTALS-Dilithium or Falcon for OTA signing in systems with 15+ year lifetime"
-  },
-  "RNG": {
-    "useCase": "RNG",
-    "recommendedAlgorithm": "Hardware TRNG seeding a DRBG (CTR_DRBG per NIST SP 800-90A)",
-    "rationale": "Cryptographic operations (key generation, nonces) require a properly seeded DRBG; pure software PRNGs are unsuitable for security-critical automotive use.",
-    "keyLength": "N/A",
-    "mode": "Random Number Generation",
-    "securityLifespan": "Long-term valid if hardware TRNG entropy source is certified",
-    "riskFlags": ["Weak/predictable RNG undermines every other cryptographic control in the system"],
-    "standardsRefs": ["NIST SP 800-90A/B/C", "ISO 21434"],
-    "pqcMigrationPath": "Not applicable; RNG requirements are independent of PQC transition"
-  },
-  "KeyManagement": {
-    "useCase": "Key Management (Lifecycle)",
-    "recommendedAlgorithm": "HSM-backed key storage with AES-256 key wrapping",
-    "rationale": "Extra category beyond the required 8 — judges often check whether teams considered key storage/rotation, not just algorithm choice, since a strong algorithm with poor key handling is still insecure.",
-    "keyLength": "256-bit (wrapping key)",
-    "mode": "Key Wrapping / Storage",
-    "securityLifespan": "Depends on HSM certification lifecycle, typically 10-15 years",
-    "riskFlags": ["No key rotation policy defined is a common real-world failure point"],
-    "standardsRefs": ["NIST SP 800-57", "ISO 21434"],
-    "pqcMigrationPath": "Ensure HSM firmware is upgradable to support PQC algorithms without hardware replacement"
-  },
-  "HSMProvisioning": {
-    "useCase": "HSM/Secure Element Provisioning",
-    "recommendedAlgorithm": "ECC P-256 provisioning keys with AES-128 secure channel",
-    "rationale": "Extra category — covers manufacturing-time key injection into ECUs, a stage often overlooked but critical since a compromised provisioning process undermines all downstream crypto.",
-    "keyLength": "256-bit (ECC), 128-bit (AES channel)",
-    "mode": "Secure Provisioning",
-    "securityLifespan": "Secure until ~2030",
-    "riskFlags": ["Factory provisioning process itself is a common attack target"],
-    "standardsRefs": ["ISO 21434", "SAE J3101"],
-    "pqcMigrationPath": "Migrate provisioning key exchange to Kyber once tooling support matures"
+  "use_cases": {
+    "Secure Boot": {
+      "useCase": "Secure Boot",
+      "category": "Platform Integrity",
+      "recommendedAlgorithm": "ECDSA P-256 or RSA-3072",
+      "pqcCandidate": "ML-DSA-44 / CRYSTALS-Dilithium or LMS/HSS",
+      "rationale": "Secure Boot enforces cryptographic verification of early-stage bootloaders and firmware prior to execution. ECDSA P-256 is optimal for constrained MCUs, while RSA-3072 enables faster verification where boot-time latency is critical.",
+      "keyLength": "256-bit (ECDSA) / 3072-bit (RSA)",
+      "mode": "Digital Signature Verification",
+      "securityLifespan": "Secure until ~2030 (RSA/ECDSA). State-machine tracking or PQC transition required for 15+ year lifespans.",
+      "riskFlags": [
+        "Vulnerable to quantum Shor's algorithm over long-term lifespans (>15 years)",
+        "Boot latency overhead when utilizing large PQC public keys"
+      ],
+      "standardsRefs": [
+        "NIST FIPS 186-5",
+        "ISO/SAE 21434",
+        "NIST SP 800-193"
+      ],
+      "pqcMigrationPath": "Transition to stateful hash-based signatures (LMS/HSS per NIST SP 800-208) or lattice-based ML-DSA (FIPS 204) for long-lived automotive platforms."
+    },
+    "OTA Update": {
+      "useCase": "OTA Update",
+      "category": "Firmware Lifecycle",
+      "recommendedAlgorithm": "Ed25519 or ECDSA P-256 with SHA-256 / SHA-3-256",
+      "pqcCandidate": "ML-DSA-65 (CRYALS-Dilithium) or Falcon-512",
+      "rationale": "OTA updates require resilient signature verification under severe asymmetric bandwidth constraints. Dual-signing / hybrid verification allows immediate transition to PQC roots of trust.",
+      "keyLength": "256-bit (Ed25519/ECDSA), 256-bit hash digest",
+      "mode": "Dual Signatures / End-to-End Image Integrity",
+      "securityLifespan": "Classical signatures valid until ~2030; PQC hybrid roots mandatory for UNECE R156 compliance across 15-20 year fleets.",
+      "riskFlags": [
+        "Shor's algorithm breaks classical signature verification",
+        "Firmware rollback vulnerability if monotonic version counters are absent"
+      ],
+      "standardsRefs": [
+        "UNECE WP.29 R156",
+        "ISO/SAE 21434",
+        "Uptane Standard IEEE-ISTO 6100.2.1"
+      ],
+      "pqcMigrationPath": "Implement hybrid signature wrapping (Ed25519 + ML-DSA-65) with Uptane compliant multi-repository key delegation."
+    },
+    "V2X Communication": {
+      "useCase": "V2X Communication",
+      "category": "Vehicle Connectivity",
+      "recommendedAlgorithm": "ECDSA P-256 / BrainpoolP256r1 with IEEE 1609.2 / ETSI TS 103 097",
+      "pqcCandidate": "ML-DSA-44 or Falcon-512",
+      "rationale": "High message frequency and strict millisecond-level verification latency require compact signatures and hardware acceleration.",
+      "keyLength": "256-bit ECC",
+      "mode": "Pseudonymous Message Authentication & Authenticated Encryption (AES-128-GCM)",
+      "securityLifespan": "Classical mechanisms secure short-to-medium term (~2030); strict latency limits currently challenge PQC message size integration.",
+      "riskFlags": [
+        "Quantum harvest-and-forge exposure",
+        "PQC signature bandwidth overhead on IEEE 802.11p/C-V2X channels"
+      ],
+      "standardsRefs": [
+        "IEEE 1609.2",
+        "ETSI TS 103 097",
+        "ISO 21434"
+      ],
+      "pqcMigrationPath": "Evaluate lightweight stateful or lattice signatures (Falcon-512) to fit IEEE 1609.2 MTU limits."
+    },
+    "SecOC / In-Vehicle Communication": {
+      "useCase": "SecOC / In-Vehicle Communication",
+      "category": "In-Vehicle Networking",
+      "recommendedAlgorithm": "AES-128-CMAC / AES-128-GMAC (per AUTOSAR SecOC)",
+      "pqcCandidate": "AES-256-CMAC",
+      "rationale": "In-vehicle CAN / CAN-FD networks have constrained payload limits. AES-CMAC (truncated to 24-64 bits) paired with freshness values provides low-latency bus integrity.",
+      "keyLength": "128-bit (upgradable to 256-bit)",
+      "mode": "Symmetric Message Authentication Code (MAC)",
+      "securityLifespan": "Resistant to quantum Shor's attack. Grover's algorithm halves symmetric space; 128-bit remains safe against practical online bus attacks.",
+      "riskFlags": [
+        "Truncated MAC collision probability if freshness counters reset",
+        "Insecure symmetric key distribution across ECUs"
+      ],
+      "standardsRefs": [
+        "AUTOSAR SecOC",
+        "NIST SP 800-38B",
+        "ISO/SAE 21434"
+      ],
+      "pqcMigrationPath": "Upgrade symmetric key lengths to 256-bit (AES-256-CMAC) during next-generation HSM refresh; no architectural overhaul required."
+    },
+    "ECU-to-ECU Communication": {
+      "useCase": "ECU-to-ECU Communication",
+      "category": "In-Vehicle Networking",
+      "recommendedAlgorithm": "AES-128-GCM or AES-256-GCM with SOME/IP-SD Security",
+      "pqcCandidate": "Hybrid ECDH + ML-KEM-768 for session key establishment",
+      "rationale": "High-bandwidth Ethernet/SOME-IP communication between zonal controllers requires wire-speed confidentiality and authenticated integrity.",
+      "keyLength": "128-bit / 256-bit",
+      "mode": "Authenticated Encryption with Associated Data (AEAD)",
+      "securityLifespan": "Secure past 2035 for symmetric traffic; ephemeral key exchange must account for quantum interception.",
+      "riskFlags": [
+        "Replay and reflection attacks without cryptographic session freshness"
+      ],
+      "standardsRefs": [
+        "AUTOSAR SOME/IP Security",
+        "IEEE 802.1AE (MACsec)",
+        "ISO 21434"
+      ],
+      "pqcMigrationPath": "Transition session handshakes to ML-KEM (Kyber) via TLS 1.3 hybrid cipher suites."
+    },
+    "Key Exchange": {
+      "useCase": "Key Exchange",
+      "category": "Key Establishment",
+      "recommendedAlgorithm": "Hybrid ECDH (P-256 / X25519) + ML-KEM-768 (CRYSTALS-Kyber)",
+      "pqcCandidate": "ML-KEM-768 / ML-KEM-1024 (NIST FIPS 203)",
+      "rationale": "Pure classical Diffie-Hellman / ECDH is directly compromised by Shor's algorithm. For vehicles lasting 15-20 years, Harvest-Now-Decrypt-Later (HNDL) necessitates hybrid post-quantum key encapsulation.",
+      "keyLength": "256-bit (ECDH) + 1184-byte ciphertext (ML-KEM-768)",
+      "mode": "Key Encapsulation Mechanism (KEM) / Key Agreement",
+      "securityLifespan": "Hybrid scheme secure against both classical and quantum adversaries through 2045+.",
+      "riskFlags": [
+        "Immediate HNDL threat on all stored telematics and diagnostics session traffic",
+        "Higher RAM requirements during lattice polynomial expansion"
+      ],
+      "standardsRefs": [
+        "NIST FIPS 203 (ML-KEM)",
+        "NIST SP 800-56A Rev 3",
+        "IETF RFC 9180"
+      ],
+      "pqcMigrationPath": "Deploy hybrid ECDH + ML-KEM-768 immediately for all backhaul, telematics, and diagnostics key exchange channels."
+    },
+    "Data Encryption": {
+      "useCase": "Data Encryption",
+      "category": "Confidentiality / Storage",
+      "recommendedAlgorithm": "AES-256-XTS (Storage) / AES-256-GCM (Payloads)",
+      "pqcCandidate": "AES-256 (Inherently Quantum-Resistant)",
+      "rationale": "Symmetric encryption using AES-256 offers 128 bits of post-quantum security against Grover's algorithm, satisfying long-term retention requirements for crash logs and telematics data.",
+      "keyLength": "256-bit",
+      "mode": "Authenticated Encryption (GCM) / Block Cipher (XTS)",
+      "securityLifespan": "Secure beyond 2040+.",
+      "riskFlags": [
+        "IV/Nonce reuse catastrophic vulnerability in GCM mode",
+        "Unauthenticated CBC mode exposure to padding oracle exploits"
+      ],
+      "standardsRefs": [
+        "NIST FIPS 197",
+        "NIST SP 800-38D",
+        "ISO/SAE 21434"
+      ],
+      "pqcMigrationPath": "Ensure default 256-bit key length across all storage domains; algorithm replacement is not required."
+    },
+    "Digital Signatures": {
+      "useCase": "Digital Signatures",
+      "category": "Authentication & Non-Repudiation",
+      "recommendedAlgorithm": "ECDSA (P-256/P-384) or Ed25519 (Short-term) / ML-DSA (Long-term)",
+      "pqcCandidate": "ML-DSA-65 / ML-DSA-87 (NIST FIPS 204) or SLH-DSA (NIST FIPS 205)",
+      "rationale": "Digital signatures are required for certificate issuance, diagnostic authorization, and telemetry signing. Lifespans exceeding 10 years must prepare for lattice-based schemes.",
+      "keyLength": "256/384-bit (Classical) or FIPS 204 Parameter Sets",
+      "mode": "Asymmetric Signature & Verification",
+      "securityLifespan": "Classical signatures valid until ~2030.",
+      "riskFlags": [
+        "Retroactive signature forgery if public key certificates outlive classical security margin"
+      ],
+      "standardsRefs": [
+        "NIST FIPS 186-5",
+        "NIST FIPS 204",
+        "RFC 8032"
+      ],
+      "pqcMigrationPath": "Deploy dual-cert infrastructure supporting standard X.509 v3 with PQC extensions."
+    },
+    "RNG": {
+      "useCase": "RNG",
+      "category": "Randomness & Entropy",
+      "recommendedAlgorithm": "Hardware TRNG seeded into NIST SP 800-90A CTR_DRBG (AES-256)",
+      "pqcCandidate": "CTR_DRBG (AES-256) with Quantum Entropy Enhancement",
+      "rationale": "Cryptographic unpredictability underpins keys, nonces, and session tokens. Automotive MCUs must leverage HSM hardware entropy with continuous online health tests.",
+      "keyLength": "256-bit internal state",
+      "mode": "Deterministic Random Bit Generator (DRBG)",
+      "securityLifespan": "Long-term certified if hardware noise sources conform to SP 800-90B.",
+      "riskFlags": [
+        "Entropy starvation during early cold-boot cycles",
+        "Undetected hardware oscillator drift or physical fault injection"
+      ],
+      "standardsRefs": [
+        "NIST SP 800-90A/B/C",
+        "AIS 31",
+        "ISO/SAE 21434"
+      ],
+      "pqcMigrationPath": "RNG architectures remain quantum-safe provided minimum 256 bits of real entropy are extracted."
+    },
+    "Diagnostics (UDS)": {
+      "useCase": "Diagnostics (UDS)",
+      "category": "Diagnostic Security",
+      "recommendedAlgorithm": "ISO 14229-1 Authentication (Service 0x29) with TLS 1.3 / AES-128-GCM",
+      "pqcCandidate": "TLS 1.3 with Hybrid ML-KEM + ML-DSA Authorization",
+      "rationale": "Unified Diagnostic Services over IP (DoIP) require mutual authentication and role-based access control to prevent unauthorized ECU flashing and calibration changes.",
+      "keyLength": "256-bit ECC / 128-bit AEAD",
+      "mode": "Challenge-Response Mutual Authentication (UDS 0x29 / 0x27)",
+      "securityLifespan": "Legacy seed-key (0x27) is obsolete. Service 0x29 asymmetric authentication valid to ~2030+.",
+      "riskFlags": [
+        "Brute-force vulnerabilities in legacy seed-key algorithms",
+        "Unauthenticated diagnostic commands on internal test networks"
+      ],
+      "standardsRefs": [
+        "ISO 14229-1:2020",
+        "ISO 13400 (DoIP)",
+        "ISO/SAE 21434"
+      ],
+      "pqcMigrationPath": "Upgrade diagnostic gateway to TLS 1.3 supporting hybrid quantum-safe certificate verification."
+    },
+    "Key Management": {
+      "useCase": "Key Management (Lifecycle)",
+      "category": "Key Management",
+      "recommendedAlgorithm": "HSM-backed Storage with AES-256 Key Wrapping (NIST SP 800-38F)",
+      "pqcCandidate": "Crypto-Agile Key Envelope Management",
+      "rationale": "Automotive keys must be shielded from readback attacks across all vehicle operational and maintenance phases. Keys must be securely wrapped during provisioning and over-the-air updates.",
+      "keyLength": "256-bit Key Encrypting Key (KEK)",
+      "mode": "Key Wrap (KW / KWP Mode)",
+      "securityLifespan": "Secure across 15-20 year lifespans.",
+      "riskFlags": [
+        "Unencrypted debug port access (JTAG/SWD) exposing keys in plaintext RAM",
+        "Static factory master keys shared across vehicle fleets"
+      ],
+      "standardsRefs": [
+        "NIST SP 800-57",
+        "NIST SP 800-38F",
+        "EVITA HSM Specification",
+        "ISO/SAE 21434"
+      ],
+      "pqcMigrationPath": "Design key storage envelopes with crypto-agility to store variable-length PQC private keys."
+    }
   }
 }

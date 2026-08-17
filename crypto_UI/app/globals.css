@@ -66,10 +66,12 @@
   }
 }
 
+/* Utilities */
 .text-balance {
   text-wrap: balance;
 }
 
+/* Subtle radar/grid background used sparingly */
 .bg-grid {
   background-image:
     linear-gradient(to right, rgba(90, 150, 220, 0.06) 1px, transparent 1px),
@@ -83,6 +85,7 @@
     0 8px 40px -12px rgba(59, 130, 246, 0.45);
 }
 
+/* Cursor spotlight effect (toggle via settings) */
 .cursor-spotlight::before {
   content: '';
   position: fixed;
@@ -97,6 +100,7 @@
   transition: opacity 0.3s;
 }
 
+/* Reduce motion global switch (settings) */
 .reduce-motion * {
   animation-duration: 0.001ms !important;
   animation-iteration-count: 1 !important;
@@ -104,6 +108,7 @@
   scroll-behavior: auto !important;
 }
 
+/* High contrast (settings) */
 .high-contrast {
   --border: rgba(120, 180, 255, 0.5);
   --border-strong: rgba(150, 200, 255, 0.75);
@@ -118,28 +123,52 @@
 }
 
 @keyframes crypto-fade-up {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .animate-fade-up {
   animation: crypto-fade-up 0.5s ease both;
 }
 
 @keyframes crypto-headlight {
-  0% { opacity: 0; transform: scale(0.2); }
-  60% { opacity: 1; }
-  100% { opacity: 1; transform: scale(30); }
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(30);
+  }
 }
 
 @keyframes crypto-pulse-ring {
-  0% { transform: scale(0.8); opacity: 0.7; }
-  100% { transform: scale(2.2); opacity: 0; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 .animate-pulse-ring {
   animation: crypto-pulse-ring 2.4s ease-out infinite;
 }
 
 @keyframes crypto-scan {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(300%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
 }
