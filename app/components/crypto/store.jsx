@@ -43,6 +43,7 @@ export function StoreProvider({ children }) {
   const [selections, setSelections] = useState({})
   const [context, setContextState] = useState(emptyContext)
   const [recommendation, setRecommendation] = useState(null)
+  const [aiAnalysis, setAiAnalysis] = useState(null)
   const [compareSelection, setCompareSelection] = useState(['ecdsa-p256', 'ml-dsa'])
   const [settings, setSettingsState] = useState(defaultSettings)
 
@@ -95,8 +96,22 @@ export function StoreProvider({ children }) {
   const runAnalysis = useCallback(() => {
     setStep('analysis')
     setTab('workspace')
+    setAiAnalysis(null)
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
     const rec = generateRecommendation(selections, context)
+    
+    // Fetch AI Analysis in parallel
+    fetch('/api/analyze-workspace', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ selections, context }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.analysis) setAiAnalysis(data.analysis)
+      })
+      .catch((err) => console.error('AI Analysis failed:', err))
+
     window.setTimeout(() => {
       setRecommendation(rec)
       setStep('recommendation')
@@ -119,6 +134,7 @@ export function StoreProvider({ children }) {
     setSelections({})
     setContextState(emptyContext)
     setRecommendation(null)
+    setAiAnalysis(null)
     setStep('objectives')
     setTab('workspace')
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -159,6 +175,7 @@ export function StoreProvider({ children }) {
       setContext,
       toggleContextArray,
       recommendation,
+      aiAnalysis,
       runAnalysis,
       compareSelection,
       toggleCompare,
@@ -179,6 +196,7 @@ export function StoreProvider({ children }) {
       setContext,
       toggleContextArray,
       recommendation,
+      aiAnalysis,
       runAnalysis,
       compareSelection,
       toggleCompare,
