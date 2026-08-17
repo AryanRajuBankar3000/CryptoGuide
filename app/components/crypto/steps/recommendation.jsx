@@ -10,6 +10,8 @@ import {
   GitBranch,
   ListChecks,
   Route,
+  Sparkles,
+  Loader2,
 } from 'lucide-react'
 import { useStore } from '../store'
 import { ActionButton, SectionHeader, StatusBadge, Eyebrow } from '../ui/primitives'
@@ -31,7 +33,7 @@ const VIEWS = [
 ]
 
 export function RecommendationStep() {
-  const { recommendation, resetAll, goToStep } = useStore()
+  const { recommendation, aiAnalysis, resetAll, goToStep } = useStore()
   const [view, setView] = useState('summary')
 
   if (!recommendation || recommendation.useCases.length === 0) {
@@ -105,6 +107,36 @@ export function RecommendationStep() {
       {/* Views */}
       {view === 'summary' ? (
         <div className="space-y-4 animate-fade-up">
+          {/* AI Insights Block */}
+          <div className="relative overflow-hidden rounded-xl border border-primary/30 bg-primary/5 p-6 sm:p-8">
+            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/20 blur-3xl" />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-4">
+                <Sparkles className="h-5 w-5 text-bright" />
+                <h3 className="text-lg font-semibold text-foreground">AI Architectural Analysis</h3>
+              </div>
+              {aiAnalysis ? (
+                <div className="space-y-3 text-sm leading-relaxed text-foreground/90">
+                  {aiAnalysis.split('\n\n').map((paragraph, i) => (
+                    <p
+                      key={i}
+                      dangerouslySetInnerHTML={{
+                        __html: paragraph
+                          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-bright">$1</strong>')
+                          .replace(/\n/g, '<br/>'),
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex items-center gap-3 text-sm text-muted-foreground py-4">
+                  <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                  Analyzing your system constraints and additional notes...
+                </div>
+              )}
+            </div>
+          </div>
+
           {useCases.map((u, i) => (
             <UseCaseSummaryCard key={u.objectiveId} useCase={u} rank={i} />
           ))}
