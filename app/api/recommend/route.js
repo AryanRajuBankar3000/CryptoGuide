@@ -13,11 +13,10 @@ function loadKnowledgeBase() {
   return cachedKB;
 }
 
-// Build a concise reference table instead of dumping the entire JSON
 function buildKBReference() {
   const kb = JSON.parse(loadKnowledgeBase());
   const rows = Object.entries(kb).map(([key, v]) =>
-    `- ${key}: algo="${v.recommendedAlgorithm}", key="${v.keyLength}", mode="${v.mode}", standards=[${v.standardsRefs.join(', ')}], pqc="${v.pqcMigrationPath}", risks=[${v.riskFlags.join('; ')}], lifespan="${v.securityLifespan}"`
+    `- ${key}: algo="${v.recommendedAlgorithm}", key="${v.keyLength}", mode="${v.mode}", standards=[${(v.standardsRefs || []).join(', ')}], pqc="${v.pqcMigrationPath}", risks=[${(v.riskFlags || []).join('; ')}], lifespan="${v.securityLifespan}"`
   );
   return rows.join('\n');
 }
