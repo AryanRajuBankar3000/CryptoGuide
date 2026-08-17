@@ -17,14 +17,14 @@ function Toggle({
       aria-label={label}
       onClick={() => onChange(!checked)}
       className={cn(
-        'relative h-6 w-11 shrink-0 rounded-full border transition-colors',
-        checked ? 'border-primary bg-primary' : 'border-border-strong bg-card-2',
+        'relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        checked ? 'bg-primary' : 'bg-card-2 border-border-strong'
       )}
     >
       <span
         className={cn(
-          'absolute top-0.5 h-4 w-4 rounded-full bg-foreground transition-transform',
-          checked ? 'translate-x-[22px]' : 'translate-x-0.5',
+          'pointer-events-none block h-5 w-5 rounded-full bg-foreground shadow-sm ring-0 transition-transform',
+          checked ? 'translate-x-5' : 'translate-x-0'
         )}
       />
     </button>
