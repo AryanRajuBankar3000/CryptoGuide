@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CryptoGuide
+
+CryptoGuide is an interactive Automotive Cybersecurity Platform designed to help engineers and developers choose the right cryptographic mechanisms for various vehicle security use cases. It provides recommendations based on security objectives, system context, and industry standards, including considerations for post-quantum cryptography (PQC) migration.
+
+## Features
+
+-   **Interactive Guided Experience:** A step-by-step wizard to define security objectives and system context (hardware capabilities, connectivity, data at rest/in transit).
+-   **Intelligent Recommendations:** Tailored cryptographic recommendations based on selected inputs, complete with algorithms, key sizes, and justification.
+-   **Security Analysis:** Detailed breakdown of potential risks, hardware impacts, and migration paths to quantum-resistant cryptography.
+-   **Knowledge Base:** Built-in reference for cryptographic concepts, algorithms, and automotive standards (e.g., ISO/SAE 21434).
+-   **AI Assistant:** An integrated chat interface to answer questions about the recommendations or general cryptography topics.
+-   **Dark Automotive UI:** A clean, professional, dark-themed design language tailored for engineering tools.
+
+## Tech Stack
+
+-   **Framework:** [Next.js](https://nextjs.org/) (App Router)
+-   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+-   **Icons:** [Lucide React](https://lucide.dev/)
+-   **Deployment:** [Vercel](https://vercel.com/)
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the platform.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The application is configured for seamless deployment on [Vercel](https://vercel.com/). You can view the live demo at:
+[https://cryptoguide-demo.vercel.app](https://cryptoguide-demo.vercel.app)
 
-## Learn More
+To deploy your own instance:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx vercel --prod
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The application is structured to separate the introductory landing experience from the core platform:
 
-## Deploy on Vercel
+-   `app/page.js`: The main entry point.
+-   `app/components/crypto/landing.jsx`: The static introductory presentation.
+-   `app/components/crypto/experience.jsx`: Manages the transition from landing to the platform.
+-   `app/components/crypto/platform.jsx`: The core application shell and navigation.
+-   `app/components/crypto/store.jsx`: State management for the recommendation engine.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
+
