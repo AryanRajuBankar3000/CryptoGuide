@@ -1,29 +1,69 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { Send, Sparkles, Bot } from 'lucide-react'
-import { answer } from '@/lib/crypto/assistant'
+import { Send, Sparkles, Bot, Loader2 } from 'lucide-react'
 import { ASSISTANT_PROMPTS } from '@/lib/crypto/data'
 import { SectionHeader } from '../ui/primitives'
-
-
 
 export function Assistant() {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
   const idRef = useRef(0)
   const scrollRef = useRef(null)
 
-  function ask(text) {
+  async function ask(text) {
     const trimmed = text.trim()
-    if (!trimmed) return
+    if (!trimmed || loading) return
+
     const userMsg = { id: ++idRef.current, role: 'user', text: trimmed }
-    const botMsg = { id: ++idRef.current, role: 'assistant', reply: answer(trimmed) }
-    setMessages((prev) => [...prev, userMsg, botMsg])
+    setMessages((prev) => [...prev, userMsg])
     setInput('')
+    setLoading(true)
+
+    // Scroll to bottom after user message
     requestAnimationFrame(() => {
       scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
     })
+
+    try {
+      const res = await fetch('/api/assistant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: trimmed,
+          history: messages.map((m) => ({
+            role: m.role,
+            text: m.role === 'user' ? m.text : m.reply?.text,
+          })),
+        }),
+      })
+
+      const data = await res.json()
+      const botMsg = {
+        id: ++idRef.current,
+        role: 'assistant',
+        reply: {
+          text: data.text || 'Sorry, I could not generate a response.',
+          refs: data.refs || null,
+        },
+      }
+      setMessages((prev) => [...prev, botMsg])
+    } catch {
+      const errMsg = {
+        id: ++idRef.current,
+        role: 'assistant',
+        reply: {
+          text: 'Sorry, there was an error connecting to the assistant. Please try again.',
+        },
+      }
+      setMessages((prev) => [...prev, errMsg])
+    } finally {
+      setLoading(false)
+      requestAnimationFrame(() => {
+        scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
+      })
+    }
   }
 
   function onKeyDown(e) {
@@ -39,7 +79,7 @@ export function Assistant() {
       <SectionHeader
         eyebrow="Guidance"
         title="Cryptography assistant"
-        description="Ask about automotive cryptographic controls and post-quantum migration. Answers reference the built-in knowledge base and are guidance only."
+        description="Ask about automotive cryptographic controls and post-quantum migration. Powered by Gemini AI with the built-in knowledge base."
       />
 
       <div
@@ -69,7 +109,7 @@ export function Assistant() {
                   <Sparkles className="h-4 w-4 text-bright" strokeWidth={1.6} aria-hidden="true" />
                 </span>
                 <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-border bg-card-2 px-4 py-3">
-                  <p className="text-sm leading-relaxed text-foreground">{m.reply.text}</p>
+                  <p className="text-sm leading-relaxed text-foreground whitespace-pre-wrap">{m.reply.text}</p>
                   {m.reply.refs ? (
                     <ul className="mt-3 flex flex-wrap gap-2">
                       {m.reply.refs.map((r) => (
@@ -88,6 +128,19 @@ export function Assistant() {
             ),
           )
         )}
+
+        {/* Loading indicator */}
+        {loading ? (
+          <div className="flex gap-3">
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border-strong bg-card">
+              <Sparkles className="h-4 w-4 text-bright" strokeWidth={1.6} aria-hidden="true" />
+            </span>
+            <div className="flex items-center gap-2 rounded-2xl rounded-tl-sm border border-border bg-card-2 px-4 py-3">
+              <Loader2 className="h-4 w-4 animate-spin text-bright" />
+              <span className="text-sm text-muted-foreground">Thinking…</span>
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">
@@ -96,7 +149,8 @@ export function Assistant() {
             key={p}
             type="button"
             onClick={() => ask(p)}
-            className="rounded-full border border-border bg-card/40 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+            disabled={loading}
+            className="rounded-full border border-border bg-card/40 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {p}
           </button>
@@ -116,11 +170,15 @@ export function Assistant() {
         <button
           type="button"
           onClick={() => ask(input)}
-          disabled={!input.trim()}
+          disabled={!input.trim() || loading}
           aria-label="Send message"
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-colors hover:bg-bright disabled:cursor-not-allowed disabled:opacity-40"
         >
-          <Send className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+          {loading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Send className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+          )}
         </button>
       </div>
     </div>
