@@ -1,0 +1,64 @@
+{
+  "Navbar": { "home": "ホーム", "recommend": "推奨", "knowledge": "ナレッジベース", "dashboard": "リスクダッシュボード" },
+  "Language": { "title": "言語" },
+  "Landing": {
+    "badge": "自動車サイバーセキュリティプラットフォーム",
+    "title": "CRYPTO", "subtitle": "GUIDE",
+    "description": "自動車サイバーセキュリティのユースケースに適切な暗号化メカニズムを選択し、その理由、リスク、ハードウェアへの影響、耐量子コンピューター移行パスを理解します。",
+    "getStarted": "始める", "status": "システム状態: オンライン"
+  },
+  "Platform": {
+    "workspace": "ワークスペース", "knowledge": "知識", "assistant": "アシスタント", "settings": "設定",
+    "newRecommendation": "新しい推奨事項", "confirmResetTitle": "ワークスペースをリセットしますか？",
+    "confirmResetDesc": "これにより、現在の目標、コンテキスト、および推奨事項がクリアされます。",
+    "cancel": "キャンセル", "reset": "リセット"
+  },
+  "Stepper": { "objective": "セキュリティ目標", "context": "システムコンテキスト", "review": "レビュー", "recommendation": "推奨事項" },
+  "Objectives": {
+    "eyebrow": "ステップ 01 — セキュリティ目標", "title": "何を保護しますか？",
+    "description": "自動車システムの主要なセキュリティ目標を選択してください。",
+    "subOptionLabel": "特定の機能を選択", "next": "次のステップ"
+  },
+  "Context": {
+    "eyebrow": "ステップ 02 — システムコンテキスト", "title": "運用コンテキストを定義する",
+    "description": "運用環境、制約、ライフサイクル要件を指定します。",
+    "projectType": "プロジェクトの種類", "projectTypeHint": "ターゲットシステムまたはECUの種類",
+    "lifetime": "予想される寿命", "lifetimeHint": "車両生産 + 運用寿命",
+    "threatLevel": "脅威レベル", "threatLevelHint": "潜在的な攻撃への露出",
+    "hardware": "ハードウェア機能", "hardwareHint": "利用可能な暗号リソース",
+    "next": "次のステップ", "back": "戻る"
+  },
+  "Review": {
+    "eyebrow": "ステップ 03 — レビュー", "title": "構成の確認",
+    "description": "推奨事項を生成する前に、選択したセキュリティ目標とシステムコンテキストを確認します。",
+    "objective": "目標", "context": "コンテキスト", "generate": "推奨事項を生成する", "back": "戻る", "notSpecified": "未指定"
+  },
+  "Analysis": {
+    "title": "要件を分析しています...",
+    "stages": ["目標の制約を検証中", "ハードウェアの制限を評価中", "ライフサイクルの脅威を評価中", "コンプライアンス基準を確認中", "PQC戦略を策定中", "推奨事項を最終決定中"]
+  },
+  "Recommendation": {
+    "eyebrow": "ステップ 04 — 推奨事項", "disclaimer": "これはガイダンスツールです。常にセキュリティアーキテクトに相談してください。",
+    "viewSummary": "概要", "viewCompare": "比較", "viewDetails": "詳細",
+    "emptyState": "推奨事項を生成するには、前の手順を完了してください。", "export": "PDFをエクスポート", "back": "戻る"
+  },
+  "Posture": {
+    "title": "現在のセキュリティ態勢", "outOf100": "/ 100",
+    "description": "選択したコンテキストから導き出された評価指標。認証ではありません。",
+    "strong": "強力", "attention": "注意が必要", "none": "フラグなし"
+  },
+  "Architecture": { "title": "セキュリティアーキテクチャマップ", "subtitle": "暗号化が車両にどのように適合するか" },
+  "Compare": {
+    "instructions": "比較するアルゴリズムを2〜3個選択してください。", "selected": "選択済み", "property": "プロパティ",
+    "empty": "比較表を表示するには、少なくとも2つのアルゴリズムを選択してください。", "Security": "セキュリティ", "Performance": "パフォーマンス",
+    "Memory": "メモリ", "Hardware Support": "ハードウェアサポート", "PQC": "PQC", "Automotive Readiness": "自動車の準備状況", "Migration Complexity": "移行の複雑さ"
+  },
+  "UseCaseSummary": { "mostCritical": "最も重要", "priority": "優先度", "why": "選ばれた理由", "cryptography": "暗号化", "hardwareImpact": "ハードウェアへの影響" },
+  "CryptoDetail": { "viewDetails": "詳細を表示", "hide": "非表示", "why": "理由", "strength": "強度", "pqc": "PQC", "migration": "移行", "reference": "参照" },
+  "Assistant": { "eyebrow": "ガイダンス", "title": "AI アシスタント", "placeholder": "質問する...", "thinking": "考え中...", "emptyTitle": "ご用件は？", "emptyDesc": "暗号化やセキュリティ基準について質問してください。" },
+  "Knowledge": { "eyebrow": "参照ライブラリ", "title": "ナレッジベース", "search": "アルゴリズムを検索...", "filterAll": "すべて", "filterRecommended": "推奨", "filterMigration": "移行計画済み", "filterPqc": "PQC 標準", "noResults": "検索に一致するアルゴリズムはありません。" },
+  "Settings": { "eyebrow": "環境設定", "title": "設定", "animations": "アニメーション", "animationsDesc": "マイクロアニメーションを有効にします。", "sounds": "効果音", "soundsDesc": "インタラクションの音を鳴らします。", "density": "レイアウト密度", "densityDesc": "アプリ全体の垂直方向の間隔を制御します。", "densityComfortable": "快適", "densityCompact": "コンパクト", "reset": "デフォルトにリセット", "resetDesc": "すべての設定を元の状態に戻します。" },
+  "Common": { "yes": "はい", "no": "いいえ", "unknown": "不明" },
+  "DashboardPage": { "title": "リスクダッシュボード", "description": "すべてのユースケースにおける視覚的なリスク評価。", "heatmap": "リスクヒートマップ", "useCase": "ユースケース", "pqcReadiness": "PQCの準備状況", "ready": "準備完了", "quantumSafe": "耐量子", "monitor": "監視", "migrationNeeded": "移行が必要", "categoriesSafe": "のカテゴリは耐量子性があります", "requireMigration": "はPQC移行が必要です", "timeline": "アルゴリズムの非推奨タイムライン", "at": "における", "threat": "脅威", "risk": "リスク", "immediatePqc": "即時のPQC移行計画をお勧めします。", "monitorDeprecation": "非推奨のタイムラインを監視し、移行を計画します。", "adequate": "現在のアルゴリズムは適切です。" },
+  "RecommendPage": { "title": "スマート推奨", "description": "ユースケースに基づいたコンテキスト認識型の暗号化推奨事項を生成します。", "placeholder": "例：セキュアブートにはどのアルゴリズムを使用すべきですか？", "button": "推奨事項を取得", "or": "またはテンプレートから開始：", "starter1": "ゲートウェイECUのV2X通信を保護する必要があります。", "starter2": "OTA更新のための暗号化を推奨してください。", "starter3": "制限のあるECUでのSecOCのアルゴリズムは何ですか？" }
+}

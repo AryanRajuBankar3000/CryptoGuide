@@ -1,0 +1,64 @@
+{
+  "Navbar": { "home": "홈", "recommend": "추천", "knowledge": "지식 기반", "dashboard": "위험 대시보드" },
+  "Language": { "title": "언어" },
+  "Landing": {
+    "badge": "자동차 사이버 보안 플랫폼",
+    "title": "CRYPTO", "subtitle": "GUIDE",
+    "description": "자동차 사이버 보안 사용 사례에 적합한 암호화 메커니즘을 선택하고 그 이유, 위험, 하드웨어 영향 및 양자 내성 마이그레이션 경로를 이해하십시오.",
+    "getStarted": "시작하기", "status": "시스템 상태: 온라인"
+  },
+  "Platform": {
+    "workspace": "작업 공간", "knowledge": "지식", "assistant": "어시스턴트", "settings": "설정",
+    "newRecommendation": "새 추천", "confirmResetTitle": "작업 공간을 재설정하시겠습니까?",
+    "confirmResetDesc": "이렇게 하면 현재 목표, 컨텍스트 및 추천이 지워집니다.",
+    "cancel": "취소", "reset": "재설정"
+  },
+  "Stepper": { "objective": "보안 목표", "context": "시스템 컨텍스트", "review": "검토", "recommendation": "추천" },
+  "Objectives": {
+    "eyebrow": "단계 01 — 보안 목표", "title": "무엇을 보호하고 있습니까?",
+    "description": "자동차 시스템의 주요 보안 목표를 선택하십시오.",
+    "subOptionLabel": "특정 기능 선택", "next": "다음 단계"
+  },
+  "Context": {
+    "eyebrow": "단계 02 — 시스템 컨텍스트", "title": "작동 컨텍스트 정의",
+    "description": "작동 환경, 제약 조건 및 수명 주기 요구 사항을 지정합니다.",
+    "projectType": "프로젝트 유형", "projectTypeHint": "대상 시스템 또는 ECU 유형",
+    "lifetime": "예상 수명", "lifetimeHint": "차량 생산 + 운영 수명",
+    "threatLevel": "위협 수준", "threatLevelHint": "잠재적 공격에 대한 노출",
+    "hardware": "하드웨어 기능", "hardwareHint": "사용 가능한 암호화 리소스",
+    "next": "다음 단계", "back": "뒤로"
+  },
+  "Review": {
+    "eyebrow": "단계 03 — 검토", "title": "구성 검토",
+    "description": "추천을 생성하기 전에 선택한 보안 목표 및 시스템 컨텍스트를 확인하십시오.",
+    "objective": "목표", "context": "컨텍스트", "generate": "추천 생성", "back": "뒤로", "notSpecified": "지정되지 않음"
+  },
+  "Analysis": {
+    "title": "요구 사항 분석 중...",
+    "stages": ["목표 제약 조건 확인", "하드웨어 제한 사항 평가", "수명 주기 위협 평가", "규정 준수 표준 확인", "PQC 전략 수립", "추천 완료"]
+  },
+  "Recommendation": {
+    "eyebrow": "단계 04 — 추천", "disclaimer": "이것은 안내 도구입니다. 항상 보안 아키텍트와 상담하십시오.",
+    "viewSummary": "요약", "viewCompare": "비교", "viewDetails": "세부 정보",
+    "emptyState": "추천을 생성하려면 이전 단계를 완료하십시오.", "export": "PDF 내보내기", "back": "뒤로"
+  },
+  "Posture": {
+    "title": "현재 보안 상태", "outOf100": "/ 100",
+    "description": "선택한 컨텍스트에서 파생된 평가 지표입니다. 인증이 아닙니다.",
+    "strong": "강력함", "attention": "주의 필요", "none": "플래그 없음"
+  },
+  "Architecture": { "title": "보안 아키텍처 맵", "subtitle": "암호화가 차량에 어떻게 적용되는가" },
+  "Compare": {
+    "instructions": "비교할 알고리즘을 2~3개 선택하십시오.", "selected": "선택됨", "property": "속성",
+    "empty": "비교표를 보려면 최소 두 개의 알고리즘을 선택하십시오.", "Security": "보안", "Performance": "성능",
+    "Memory": "메모리", "Hardware Support": "하드웨어 지원", "PQC": "PQC", "Automotive Readiness": "자동차 준비 상태", "Migration Complexity": "마이그레이션 복잡성"
+  },
+  "UseCaseSummary": { "mostCritical": "가장 중요", "priority": "우선 순위", "why": "선택된 이유", "cryptography": "암호화", "hardwareImpact": "하드웨어 영향" },
+  "CryptoDetail": { "viewDetails": "세부 정보 보기", "hide": "숨기기", "why": "이유", "strength": "강도", "pqc": "PQC", "migration": "마이그레이션", "reference": "참조" },
+  "Assistant": { "eyebrow": "안내", "title": "AI 어시스턴트", "placeholder": "질문하기...", "thinking": "생각 중...", "emptyTitle": "무엇을 도와드릴까요?", "emptyDesc": "암호화 또는 보안 표준에 대해 질문하십시오." },
+  "Knowledge": { "eyebrow": "참조 라이브러리", "title": "지식 기반", "search": "알고리즘 검색...", "filterAll": "모두", "filterRecommended": "권장", "filterMigration": "마이그레이션 계획됨", "filterPqc": "PQC 표준", "noResults": "검색과 일치하는 알고리즘이 없습니다." },
+  "Settings": { "eyebrow": "환경 설정", "title": "설정", "animations": "애니메이션", "animationsDesc": "마이크로 애니메이션 활성화.", "sounds": "음향 효과", "soundsDesc": "상호 작용 소리 재생.", "density": "레이아웃 밀도", "densityDesc": "앱의 세로 간격 제어.", "densityComfortable": "편안함", "densityCompact": "컴팩트", "reset": "기본값으로 재설정", "resetDesc": "모든 설정을 원래 상태로 복원합니다." },
+  "Common": { "yes": "예", "no": "아니요", "unknown": "알 수 없음" },
+  "DashboardPage": { "title": "위험 대시보드", "description": "모든 사용 사례에 대한 시각적 위험 평가.", "heatmap": "위험 히트맵", "useCase": "사용 사례", "pqcReadiness": "PQC 준비 상태", "ready": "준비됨", "quantumSafe": "양자 안전", "monitor": "모니터링", "migrationNeeded": "마이그레이션 필요", "categoriesSafe": "범주는 양자 안전합니다", "requireMigration": "PQC 마이그레이션 필요", "timeline": "알고리즘 지원 중단 일정", "at": "에서", "threat": "위협", "risk": "위험", "immediatePqc": "즉각적인 PQC 마이그레이션 계획을 권장합니다.", "monitorDeprecation": "지원 중단 일정을 모니터링하고 마이그레이션을 계획하십시오.", "adequate": "현재 알고리즘으로 충분합니다." },
+  "RecommendPage": { "title": "스마트 추천", "description": "상황을 인식하는 암호화 추천을 생성합니다.", "placeholder": "예: 보안 부팅에 어떤 알고리즘을 사용해야 합니까?", "button": "추천 받기", "or": "또는 템플릿으로 시작:", "starter1": "게이트웨이 ECU의 V2X 통신을 보호해야 합니다.", "starter2": "OTA 업데이트를 위한 암호화 권장.", "starter3": "제한된 ECU의 SecOC 알고리즘은 무엇입니까?" }
+}
