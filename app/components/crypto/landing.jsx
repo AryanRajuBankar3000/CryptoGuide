@@ -3,8 +3,11 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { Lock, ArrowRight, ShieldCheck } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Landing({  onEnter  }) {
+  const t = useTranslations('Landing')
   const [transitioning, setTransitioning] = useState(false)
 
   function handleStart() {
@@ -28,6 +31,10 @@ export function Landing({  onEnter  }) {
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
       </div>
 
+      <div className="absolute right-4 top-4 z-50">
+        <LanguageSwitcher />
+      </div>
+
       {/* Content */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 py-16 text-center">
         {/* Animated logo */}
@@ -39,41 +46,38 @@ export function Landing({  onEnter  }) {
           </div>
         </div>
 
-        {/* Platform badge */}
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border-strong bg-card/50 px-4 py-1.5 backdrop-blur">
           <ShieldCheck className="h-4 w-4 text-bright" strokeWidth={1.8} aria-hidden="true" />
           <span className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
-            Automotive Cybersecurity Platform
+            {t('badge')}
           </span>
         </div>
 
         <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-          CRYPTO
+          {t('title')}
         </h1>
         <p className="mt-2 text-lg font-light text-muted-foreground sm:text-xl">
-          Secure your vehicle <span className="text-bright">with Cryptography</span>
+          {t('subtitle')}
         </p>
 
         <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground/90 text-pretty sm:text-base">
-          Choose the right cryptographic mechanisms for automotive cybersecurity use cases and
-          understand the reasoning, risks, hardware impact, and post-quantum migration path.
+          {t('description')}
         </p>
 
         <button
           onClick={handleStart}
           className="group mt-10 inline-flex min-h-[56px] items-center gap-3 rounded-md bg-primary px-8 text-sm font-semibold uppercase tracking-wider text-primary-foreground shadow-[0_10px_40px_-12px_rgba(59,130,246,0.7)] transition-all duration-200 hover:bg-bright hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bright focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          Let&apos;s Get Started
+          {t('getStarted')}
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
         </button>
 
-        {/* Security status */}
         <div className="mt-12 inline-flex items-center gap-2 text-xs text-muted-foreground">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success/70" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
           </span>
-          <span className="font-mono uppercase tracking-widest">Security systems online</span>
+          <span className="font-mono uppercase tracking-widest">{t('status')}</span>
         </div>
       </div>
 

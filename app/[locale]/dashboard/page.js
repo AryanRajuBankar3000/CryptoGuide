@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 const USE_CASES = [
   "Secure Boot", "Integrity", "V2X Comms", "Key Exchange", "Data Encryption",
@@ -41,6 +42,7 @@ const PQC_TOTAL = 10;
 const PQC_SAFE_COUNT = 5; // Symmetric/hash algorithms that are already PQC-safe
 
 export default function DashboardPage() {
+  const t = useTranslations("DashboardPage");
   const [selectedCell, setSelectedCell] = useState(null);
 
   const cellColor = (risk) => {
@@ -59,10 +61,10 @@ export default function DashboardPage() {
         {/* Header */}
         <div className="text-center mb-10 fade-in">
           <h1 className="text-3xl font-bold mb-3">
-            <span className="gradient-text">Risk Dashboard</span>
+            <span className="gradient-text">{t("title")}</span>
           </h1>
           <p className="text-[var(--text-secondary)] max-w-lg mx-auto">
-            Visual risk assessment across all use cases and threat levels. Track algorithm deprecation timelines and post-quantum readiness.
+            {t("description")}
           </p>
         </div>
 
@@ -70,14 +72,14 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Risk Heatmap */}
           <div className="lg:col-span-2 glass-card p-6 fade-in-up">
-            <h2 className="text-lg font-semibold mb-4">Risk Heatmap</h2>
+            <h2 className="text-lg font-semibold mb-4">{t("heatmap")}</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
                   <tr>
-                    <th className="text-left text-[var(--text-muted)] pb-3 pr-3 font-medium">Use Case</th>
-                    {THREATS.map((t) => (
-                      <th key={t} className="text-center text-[var(--text-muted)] pb-3 px-1 font-medium">{t}</th>
+                    <th className="text-left text-[var(--text-muted)] pb-3 pr-3 font-medium">{t("useCase")}</th>
+                    {THREATS.map((th) => (
+                      <th key={th} className="text-center text-[var(--text-muted)] pb-3 px-1 font-medium">{th}</th>
                     ))}
                   </tr>
                 </thead>
@@ -85,13 +87,13 @@ export default function DashboardPage() {
                   {USE_CASES.map((uc) => (
                     <tr key={uc}>
                       <td className="pr-3 py-1.5 text-[var(--text-secondary)] font-medium whitespace-nowrap">{uc}</td>
-                      {THREATS.map((t) => {
-                        const risk = RISK_MATRIX[uc]?.[t] || "low";
-                        const isSelected = selectedCell?.uc === uc && selectedCell?.t === t;
+                      {THREATS.map((th) => {
+                        const risk = RISK_MATRIX[uc]?.[th] || "low";
+                        const isSelected = selectedCell?.uc === uc && selectedCell?.t === th;
                         return (
-                          <td key={t} className="px-1 py-1.5">
+                          <td key={th} className="px-1 py-1.5">
                             <button
-                              onClick={() => setSelectedCell(isSelected ? null : { uc, t, risk })}
+                              onClick={() => setSelectedCell(isSelected ? null : { uc, t: th, risk })}
                               className={`heatmap-cell w-full py-2 rounded-lg border text-[10px] font-semibold uppercase ${cellColor(risk)} ${
                                 isSelected ? "ring-2 ring-white/30" : ""
                               }`}
@@ -108,19 +110,19 @@ export default function DashboardPage() {
             </div>
             {selectedCell && (
               <div className="mt-4 p-3 rounded-lg border border-[var(--border-glass)] bg-[rgba(15,15,35,0.5)] text-sm fade-in">
-                <strong>{selectedCell.uc}</strong> at <strong>{selectedCell.t}</strong> threat → <span className={`font-semibold ${
+                <strong>{selectedCell.uc}</strong> {t("at")} <strong>{selectedCell.t}</strong> {t("threat")} → <span className={`font-semibold ${
                   selectedCell.risk === "high" ? "text-red-400" : selectedCell.risk === "medium" ? "text-yellow-400" : "text-green-400"
-                }`}>{selectedCell.risk.toUpperCase()}</span> risk.
-                {selectedCell.risk === "high" && " Immediate PQC migration planning recommended."}
-                {selectedCell.risk === "medium" && " Monitor deprecation timeline and plan migration."}
-                {selectedCell.risk === "low" && " Current algorithm is adequate."}
+                }`}>{selectedCell.risk.toUpperCase()}</span> {t("risk")}.
+                {selectedCell.risk === "high" && " " + t("immediatePqc")}
+                {selectedCell.risk === "medium" && " " + t("monitorDeprecation")}
+                {selectedCell.risk === "low" && " " + t("adequate")}
               </div>
             )}
           </div>
 
           {/* PQC Readiness Gauge */}
           <div className="glass-card p-6 flex flex-col items-center justify-center fade-in-up" style={{ animationDelay: "0.2s" }}>
-            <h2 className="text-lg font-semibold mb-4">PQC Readiness</h2>
+            <h2 className="text-lg font-semibold mb-4">{t("pqcReadiness")}</h2>
             <div className="relative w-44 h-44">
               <svg width="176" height="176" viewBox="0 0 176 176">
                 {/* Background ring */}
@@ -146,19 +148,19 @@ export default function DashboardPage() {
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span className="text-3xl font-bold gradient-text">{pqcPercent}%</span>
-                <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">Ready</span>
+                <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">{t("ready")}</span>
               </div>
             </div>
             <div className="mt-4 text-center text-xs text-[var(--text-secondary)] space-y-1">
-              <p><span className="text-green-400 font-semibold">{PQC_SAFE_COUNT}</span> of {PQC_TOTAL} categories are quantum-safe</p>
-              <p><span className="text-yellow-400 font-semibold">{PQC_TOTAL - PQC_SAFE_COUNT}</span> require PQC migration</p>
+              <p><span className="text-green-400 font-semibold">{PQC_SAFE_COUNT}</span> of {PQC_TOTAL} {t("categoriesSafe")}</p>
+              <p><span className="text-yellow-400 font-semibold">{PQC_TOTAL - PQC_SAFE_COUNT}</span> {t("requireMigration")}</p>
             </div>
           </div>
         </div>
 
         {/* Algorithm Deprecation Timeline */}
         <div className="glass-card p-6 fade-in-up" style={{ animationDelay: "0.3s" }}>
-          <h2 className="text-lg font-semibold mb-6">Algorithm Deprecation Timeline</h2>
+          <h2 className="text-lg font-semibold mb-6">{t("timeline")}</h2>
           <div className="space-y-2.5">
             {/* Year markers */}
             <div className="flex items-center gap-2 text-[10px] text-[var(--text-muted)] mb-1">
@@ -199,9 +201,9 @@ export default function DashboardPage() {
 
           {/* Legend */}
           <div className="flex flex-wrap gap-4 mt-6 text-[10px]">
-            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-green-500/40" /> Quantum-Safe</span>
-            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-yellow-500/40" /> Monitor</span>
-            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-500/40" /> Migration Needed</span>
+            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-green-500/40" /> {t("quantumSafe")}</span>
+            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-yellow-500/40" /> {t("monitor")}</span>
+            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-500/40" /> {t("migrationNeeded")}</span>
           </div>
         </div>
       </div>

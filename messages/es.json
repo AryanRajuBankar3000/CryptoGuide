@@ -1,0 +1,64 @@
+{
+  "Navbar": { "home": "Inicio", "recommend": "Recomendar", "knowledge": "Base de Conocimientos", "dashboard": "Panel de Riesgos" },
+  "Language": { "title": "Idioma" },
+  "Landing": {
+    "badge": "Plataforma de Ciberseguridad Automotriz",
+    "title": "CRYPTO", "subtitle": "GUIDE",
+    "description": "Elija los mecanismos criptográficos adecuados para los casos de uso de ciberseguridad automotriz y comprenda el razonamiento, los riesgos, el impacto en el hardware y la ruta de migración poscuántica.",
+    "getStarted": "Comenzar", "status": "Estado del Sistema: En línea"
+  },
+  "Platform": {
+    "workspace": "Espacio de trabajo", "knowledge": "Conocimiento", "assistant": "Asistente", "settings": "Ajustes",
+    "newRecommendation": "Nueva Recomendación", "confirmResetTitle": "¿Restablecer espacio?",
+    "confirmResetDesc": "Esto borrará su objetivo, contexto y recomendación actual.",
+    "cancel": "Cancelar", "reset": "Restablecer"
+  },
+  "Stepper": { "objective": "Objetivo de Seguridad", "context": "Contexto del Sistema", "review": "Revisar", "recommendation": "Recomendación" },
+  "Objectives": {
+    "eyebrow": "Paso 01 — Objetivo de Seguridad", "title": "¿Qué está asegurando?",
+    "description": "Seleccione el objetivo de seguridad principal para su sistema automotriz.",
+    "subOptionLabel": "Seleccione capacidades específicas", "next": "Siguiente Paso"
+  },
+  "Context": {
+    "eyebrow": "Paso 02 — Contexto del Sistema", "title": "Definir contexto operativo",
+    "description": "Especifique el entorno operativo, las restricciones y los requisitos de ciclo de vida.",
+    "projectType": "Tipo de Proyecto", "projectTypeHint": "El sistema objetivo o tipo de ECU",
+    "lifetime": "Vida útil esperada", "lifetimeHint": "Producción del vehículo + vida operativa",
+    "threatLevel": "Nivel de Amenaza", "threatLevelHint": "Exposición a posibles ataques",
+    "hardware": "Capacidades de Hardware", "hardwareHint": "Recursos criptográficos disponibles",
+    "next": "Siguiente Paso", "back": "Atrás"
+  },
+  "Review": {
+    "eyebrow": "Paso 03 — Revisar", "title": "Revisar configuración",
+    "description": "Verifique su objetivo de seguridad y el contexto del sistema antes de generar recomendaciones.",
+    "objective": "Objetivo", "context": "Contexto", "generate": "Generar Recomendación", "back": "Atrás", "notSpecified": "No especificado"
+  },
+  "Analysis": {
+    "title": "Analizando requisitos...",
+    "stages": ["Validando restricciones del objetivo", "Evaluando limitaciones de hardware", "Evaluando amenazas del ciclo de vida", "Revisando estándares de cumplimiento", "Formulando estrategia PQC", "Finalizando recomendación"]
+  },
+  "Recommendation": {
+    "eyebrow": "Paso 04 — Recomendación", "disclaimer": "Esta es una herramienta de orientación. Consulte siempre con un arquitecto de seguridad.",
+    "viewSummary": "Resumen", "viewCompare": "Comparar", "viewDetails": "Detalles",
+    "emptyState": "Complete los pasos anteriores para generar una recomendación.", "export": "Exportar PDF", "back": "Atrás"
+  },
+  "Posture": {
+    "title": "Postura de Seguridad Actual", "outOf100": "/ 100",
+    "description": "Un indicador de evaluación derivado de su contexto seleccionado. No es una certificación.",
+    "strong": "Fuerte", "attention": "Requiere atención", "none": "Ninguno marcado"
+  },
+  "Architecture": { "title": "Mapa de Arquitectura de Seguridad", "subtitle": "Cómo encaja la criptografía en el vehículo" },
+  "Compare": {
+    "instructions": "Seleccione 2–3 algoritmos para comparar lado a lado.", "selected": "seleccionado", "property": "Propiedad",
+    "empty": "Seleccione al menos dos algoritmos para ver la tabla de comparación.", "Security": "Seguridad", "Performance": "Rendimiento",
+    "Memory": "Memoria", "Hardware Support": "Soporte de Hardware", "PQC": "PQC", "Automotive Readiness": "Preparación Automotriz", "Migration Complexity": "Complejidad de Migración"
+  },
+  "UseCaseSummary": { "mostCritical": "Más Crítico", "priority": "Prioridad", "why": "Por qué se seleccionó", "cryptography": "Criptografía", "hardwareImpact": "Impacto en hardware" },
+  "CryptoDetail": { "viewDetails": "Ver detalles", "hide": "Ocultar", "why": "Por qué", "strength": "Fuerza", "pqc": "PQC", "migration": "Migración", "reference": "Referencia" },
+  "Assistant": { "eyebrow": "Orientación", "title": "Asistente de IA", "placeholder": "Haga una pregunta...", "thinking": "Pensando...", "emptyTitle": "¿Cómo puedo ayudar?", "emptyDesc": "Haga preguntas sobre criptografía o estándares de seguridad." },
+  "Knowledge": { "eyebrow": "Biblioteca de Referencia", "title": "Base de Conocimientos", "search": "Buscar algoritmos...", "filterAll": "Todos", "filterRecommended": "Recomendados", "filterMigration": "Migración Planeada", "filterPqc": "Estándar PQC", "noResults": "Ningún algoritmo coincide con su búsqueda." },
+  "Settings": { "eyebrow": "Preferencias", "title": "Ajustes", "animations": "Animaciones", "animationsDesc": "Activar micro-animaciones y transiciones.", "sounds": "Efectos de Sonido", "soundsDesc": "Reproducir sonidos para interacciones.", "density": "Densidad de diseño", "densityDesc": "Controlar el espaciado vertical en toda la aplicación.", "densityComfortable": "Cómodo", "densityCompact": "Compacto", "reset": "Restablecer a Valores Predeterminados", "resetDesc": "Restaurar todos los ajustes a su estado original." },
+  "Common": { "yes": "Sí", "no": "No", "unknown": "Desconocido" },
+  "DashboardPage": { "title": "Panel de Riesgos", "description": "Evaluación visual de riesgos en todos los casos de uso y niveles de amenaza.", "heatmap": "Mapa de Calor de Riesgos", "useCase": "Caso de Uso", "pqcReadiness": "Preparación PQC", "ready": "Listo", "quantumSafe": "Seguro Cuántico", "monitor": "Monitorizar", "migrationNeeded": "Migración Necesaria", "categoriesSafe": "categorías son seguras cuánticamente", "requireMigration": "requieren migración PQC", "timeline": "Cronograma de Depreciación de Algoritmos", "at": "en", "threat": "amenaza", "risk": "riesgo", "immediatePqc": "Se recomienda planificación de migración PQC inmediata.", "monitorDeprecation": "Supervise el cronograma de depreciación y planifique la migración.", "adequate": "El algoritmo actual es adecuado." },
+  "RecommendPage": { "title": "Recomendaciones Inteligentes", "description": "Genere recomendaciones criptográficas conscientes del contexto basadas en sus casos de uso.", "placeholder": "Ej., ¿Qué algoritmos debo usar para Secure Boot?", "button": "Obtener Recomendación", "or": "o empezar con una plantilla:", "starter1": "Necesito asegurar la comunicación V2X para un ECU Gateway.", "starter2": "Recomendar criptografía para actualizaciones OTA.", "starter3": "¿Qué algoritmos para SecOC en un ECU de carrocería restringido?" }
+}

@@ -1,0 +1,64 @@
+{
+  "Navbar": { "home": "首页", "recommend": "推荐", "knowledge": "知识库", "dashboard": "风险看板" },
+  "Language": { "title": "语言" },
+  "Landing": {
+    "badge": "汽车网络安全平台",
+    "title": "CRYPTO", "subtitle": "GUIDE",
+    "description": "为汽车网络安全用例选择合适的加密机制，并了解其原因、风险、硬件影响和后量子迁移路径。",
+    "getStarted": "开始使用", "status": "系统状态：在线"
+  },
+  "Platform": {
+    "workspace": "工作区", "knowledge": "知识", "assistant": "助手", "settings": "设置",
+    "newRecommendation": "新推荐", "confirmResetTitle": "重置工作区？",
+    "confirmResetDesc": "这将清除您当前的目标、环境和推荐。",
+    "cancel": "取消", "reset": "重置"
+  },
+  "Stepper": { "objective": "安全目标", "context": "系统环境", "review": "审查", "recommendation": "推荐" },
+  "Objectives": {
+    "eyebrow": "第 01 步 — 安全目标", "title": "您要保护什么？",
+    "description": "选择汽车系统的主要安全目标。",
+    "subOptionLabel": "选择特定功能", "next": "下一步"
+  },
+  "Context": {
+    "eyebrow": "第 02 步 — 系统环境", "title": "定义操作环境",
+    "description": "指定操作环境、限制和生命周期要求。",
+    "projectType": "项目类型", "projectTypeHint": "目标系统或 ECU 类型",
+    "lifetime": "预期寿命", "lifetimeHint": "车辆生产 + 运营寿命",
+    "threatLevel": "威胁级别", "threatLevelHint": "潜在攻击暴露程度",
+    "hardware": "硬件功能", "hardwareHint": "可用加密资源",
+    "next": "下一步", "back": "返回"
+  },
+  "Review": {
+    "eyebrow": "第 03 步 — 审查", "title": "审查配置",
+    "description": "在生成推荐之前验证您选择的安全目标和系统环境。",
+    "objective": "目标", "context": "环境", "generate": "生成推荐", "back": "返回", "notSpecified": "未指定"
+  },
+  "Analysis": {
+    "title": "正在分析要求...",
+    "stages": ["验证目标限制", "评估硬件限制", "评估生命周期威胁", "检查合规标准", "制定 PQC 策略", "最终确定推荐"]
+  },
+  "Recommendation": {
+    "eyebrow": "第 04 步 — 推荐", "disclaimer": "这是一个指导工具。请始终咨询安全架构师。",
+    "viewSummary": "摘要", "viewCompare": "比较", "viewDetails": "详情",
+    "emptyState": "完成前面的步骤以生成推荐。", "export": "导出 PDF", "back": "返回"
+  },
+  "Posture": {
+    "title": "当前安全态势", "outOf100": "/ 100",
+    "description": "从您选择的环境中得出的评估指标。这不是认证。",
+    "strong": "强", "attention": "需要注意", "none": "未标记"
+  },
+  "Architecture": { "title": "安全架构图", "subtitle": "密码学如何融入车辆" },
+  "Compare": {
+    "instructions": "选择 2-3 种算法进行并排比较。", "selected": "已选择", "property": "属性",
+    "empty": "选择至少两种算法以查看比较表。", "Security": "安全", "Performance": "性能",
+    "Memory": "内存", "Hardware Support": "硬件支持", "PQC": "PQC", "Automotive Readiness": "汽车就绪度", "Migration Complexity": "迁移复杂性"
+  },
+  "UseCaseSummary": { "mostCritical": "最关键", "priority": "优先级", "why": "选择原因", "cryptography": "密码学", "hardwareImpact": "硬件影响" },
+  "CryptoDetail": { "viewDetails": "查看详情", "hide": "隐藏", "why": "原因", "strength": "强度", "pqc": "PQC", "migration": "迁移", "reference": "参考" },
+  "Assistant": { "eyebrow": "指南", "title": "AI 助手", "placeholder": "提问...", "thinking": "思考中...", "emptyTitle": "我能帮您什么？", "emptyDesc": "询问有关密码学或安全标准的问题。" },
+  "Knowledge": { "eyebrow": "参考书库", "title": "知识库", "search": "搜索算法...", "filterAll": "全部", "filterRecommended": "推荐", "filterMigration": "计划迁移", "filterPqc": "PQC 标准", "noResults": "没有算法符合您的搜索。" },
+  "Settings": { "eyebrow": "偏好", "title": "设置", "animations": "动画", "animationsDesc": "启用微动画。", "sounds": "音效", "soundsDesc": "播放交互声音。", "density": "布局密度", "densityDesc": "控制应用程序的垂直间距。", "densityComfortable": "舒适", "densityCompact": "紧凑", "reset": "恢复默认值", "resetDesc": "将所有设置恢复为原始状态。" },
+  "Common": { "yes": "是", "no": "否", "unknown": "未知" },
+  "DashboardPage": { "title": "风险看板", "description": "所有用例的可视化风险评估。", "heatmap": "风险热力图", "useCase": "用例", "pqcReadiness": "PQC 就绪度", "ready": "就绪", "quantumSafe": "量子安全", "monitor": "监控", "migrationNeeded": "需要迁移", "categoriesSafe": "类别是量子安全的", "requireMigration": "需要 PQC 迁移", "timeline": "算法弃用时间表", "at": "在", "threat": "威胁", "risk": "风险", "immediatePqc": "建议立即规划 PQC 迁移。", "monitorDeprecation": "监控弃用时间表并规划迁移。", "adequate": "当前算法已足够。" },
+  "RecommendPage": { "title": "智能推荐", "description": "生成上下文感知的加密推荐。", "placeholder": "例如：安全启动应使用什么算法？", "button": "获取推荐", "or": "或从模板开始：", "starter1": "我需要保护网关 ECU 的 V2X 通信。", "starter2": "推荐用于 OTA 更新的加密。", "starter3": "受限 ECU 中的 SecOC 算法是什么？" }
+}

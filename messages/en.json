@@ -1,0 +1,197 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "recommend": "Recommend",
+    "knowledge": "Knowledge Base",
+    "dashboard": "Risk Dashboard"
+  },
+  "Language": {
+    "title": "Language"
+  },
+  "Landing": {
+    "badge": "Automotive Cybersecurity Platform",
+    "title": "CRYPTO",
+    "subtitle": "GUIDE",
+    "description": "Choose appropriate cryptographic mechanisms for automotive cybersecurity use cases and understand the reasoning, risks, hardware impact, and post-quantum migration path.",
+    "getStarted": "Get Started",
+    "status": "System Status: Online"
+  },
+  "Platform": {
+    "workspace": "Workspace",
+    "knowledge": "Knowledge",
+    "assistant": "Assistant",
+    "settings": "Settings",
+    "newRecommendation": "New Recommendation",
+    "confirmResetTitle": "Reset Workspace?",
+    "confirmResetDesc": "This will clear your current objective, context, and recommendation.",
+    "cancel": "Cancel",
+    "reset": "Reset"
+  },
+  "Stepper": {
+    "objective": "Security Objective",
+    "context": "System Context",
+    "review": "Review",
+    "recommendation": "Recommendation"
+  },
+  "Objectives": {
+    "eyebrow": "Step 01 — Security Objective",
+    "title": "What are you securing?",
+    "description": "Select the primary security objective for your automotive system. This will determine the core cryptographic requirements.",
+    "subOptionLabel": "Select specific capabilities",
+    "next": "Next Step"
+  },
+  "Context": {
+    "eyebrow": "Step 02 — System Context",
+    "title": "Define operational context",
+    "description": "Specify the operational environment, constraints, and lifecycle requirements.",
+    "projectType": "Project Type",
+    "projectTypeHint": "The target system or ECU type",
+    "lifetime": "Expected Lifetime",
+    "lifetimeHint": "Vehicle production + operational life",
+    "threatLevel": "Threat Level",
+    "threatLevelHint": "Exposure to potential attacks",
+    "hardware": "Hardware Capabilities",
+    "hardwareHint": "Available crypto resources",
+    "next": "Next Step",
+    "back": "Back"
+  },
+  "Review": {
+    "eyebrow": "Step 03 — Review",
+    "title": "Review configuration",
+    "description": "Verify your selected security objective and system context before generating recommendations.",
+    "objective": "Objective",
+    "context": "Context",
+    "generate": "Generate Recommendation",
+    "back": "Back",
+    "notSpecified": "Not specified"
+  },
+  "Analysis": {
+    "title": "Analyzing requirements...",
+    "stages": [
+      "Validating objective constraints",
+      "Evaluating hardware limitations",
+      "Assessing lifecycle threats",
+      "Checking compliance standards",
+      "Formulating PQC strategy",
+      "Finalizing recommendation"
+    ]
+  },
+  "Recommendation": {
+    "eyebrow": "Step 04 — Recommendation",
+    "disclaimer": "This is a guidance tool. Always consult with a security architect and perform a formal TARA.",
+    "viewSummary": "Summary",
+    "viewCompare": "Compare",
+    "viewDetails": "Details",
+    "emptyState": "Complete the previous steps to generate a recommendation.",
+    "export": "Export PDF",
+    "back": "Back"
+  },
+  "Posture": {
+    "title": "Current Security Posture",
+    "outOf100": "/ 100",
+    "description": "An assessment indicator derived from your selected context. It is not a certification or guarantee.",
+    "strong": "Strong",
+    "attention": "Needs attention",
+    "none": "None flagged"
+  },
+  "Architecture": {
+    "title": "Security Architecture Map",
+    "subtitle": "How cryptography fits into the vehicle"
+  },
+  "Compare": {
+    "instructions": "Select 2–3 algorithms to compare side by side.",
+    "selected": "selected",
+    "property": "Property",
+    "empty": "Select at least two algorithms to see the comparison table.",
+    "Security": "Security",
+    "Performance": "Performance",
+    "Memory": "Memory",
+    "Hardware Support": "Hardware Support",
+    "PQC": "PQC",
+    "Automotive Readiness": "Automotive Readiness",
+    "Migration Complexity": "Migration Complexity"
+  },
+  "UseCaseSummary": {
+    "mostCritical": "Most Critical",
+    "priority": "Priority",
+    "why": "Why it was selected",
+    "cryptography": "Cryptography",
+    "hardwareImpact": "Hardware impact"
+  },
+  "CryptoDetail": {
+    "viewDetails": "View details",
+    "hide": "Hide",
+    "why": "Why",
+    "strength": "Strength",
+    "pqc": "PQC",
+    "migration": "Migration",
+    "reference": "Reference"
+  },
+  "Assistant": {
+    "eyebrow": "Guidance",
+    "title": "AI Assistant",
+    "placeholder": "Ask a question...",
+    "thinking": "Thinking...",
+    "emptyTitle": "How can I help?",
+    "emptyDesc": "Ask questions about cryptography, security standards, or your specific requirements."
+  },
+  "Knowledge": {
+    "eyebrow": "Reference Library",
+    "title": "Knowledge Base",
+    "search": "Search algorithms...",
+    "filterAll": "All",
+    "filterRecommended": "Recommended",
+    "filterMigration": "Migration Planned",
+    "filterPqc": "PQC Standard",
+    "noResults": "No algorithms match your search."
+  },
+  "Settings": {
+    "eyebrow": "Preferences",
+    "title": "Settings",
+    "animations": "Animations",
+    "animationsDesc": "Enable micro-animations and transitions.",
+    "sounds": "Sound Effects",
+    "soundsDesc": "Play sounds for interactions and alerts.",
+    "density": "Layout density",
+    "densityDesc": "Control vertical spacing throughout the app.",
+    "densityComfortable": "Comfortable",
+    "densityCompact": "Compact",
+    "reset": "Reset to Defaults",
+    "resetDesc": "Restore all settings to their original state."
+  },
+  "Common": {
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Unknown"
+  },
+  "DashboardPage": {
+    "title": "Risk Dashboard",
+    "description": "Visual risk assessment across all use cases and threat levels. Track algorithm deprecation timelines and post-quantum readiness.",
+    "heatmap": "Risk Heatmap",
+    "useCase": "Use Case",
+    "pqcReadiness": "PQC Readiness",
+    "ready": "Ready",
+    "quantumSafe": "Quantum-Safe",
+    "monitor": "Monitor",
+    "migrationNeeded": "Migration Needed",
+    "categoriesSafe": "categories are quantum-safe",
+    "requireMigration": "require PQC migration",
+    "timeline": "Algorithm Deprecation Timeline",
+    "at": "at",
+    "threat": "threat",
+    "risk": "risk",
+    "immediatePqc": "Immediate PQC migration planning recommended.",
+    "monitorDeprecation": "Monitor deprecation timeline and plan migration.",
+    "adequate": "Current algorithm is adequate."
+  },
+  "RecommendPage": {
+    "title": "Smart Recommendations",
+    "description": "Generate context-aware cryptographic recommendations based on your specific automotive use cases, hardware constraints, and lifecycle requirements.",
+    "placeholder": "E.g., What algorithms should I use for Secure Boot on an ECU with an HSM lasting 15 years?",
+    "button": "Get Recommendation",
+    "or": "or start with a template:",
+    "starter1": "I need to secure V2X communication for a Gateway ECU.",
+    "starter2": "Recommend crypto for OTA updates with a 20-year lifespan.",
+    "starter3": "What algorithms for SecOC on a constrained body ECU?"
+  }
+}

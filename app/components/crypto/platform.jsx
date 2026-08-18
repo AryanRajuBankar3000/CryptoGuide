@@ -14,6 +14,8 @@ import { RecommendationStep } from './steps/recommendation'
 import { KnowledgeBase } from './sections/knowledge-base'
 import { Assistant } from './sections/assistant'
 import { SettingsPanel } from './sections/settings'
+import { LanguageSwitcher } from './LanguageSwitcher'
+import { useTranslations } from 'next-intl'
 
 const TABS = [
   { id: 'workspace', label: 'Workspace' },
@@ -23,6 +25,7 @@ const TABS = [
 ]
 
 export function Platform() {
+  const t = useTranslations('Platform')
   const { tab, setTab, step, settings, resetAll } = useStore()
   const [menuOpen, setMenuOpen] = useState(false)
   const [confirmNew, setConfirmNew] = useState(false)
@@ -59,26 +62,27 @@ export function Platform() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-1 md:flex">
-            {TABS.map((t) => (
+            {TABS.map((item) => (
               <button
-                key={t.id}
-                onClick={() => setTab(t.id)}
+                key={item.id}
+                onClick={() => setTab(item.id)}
                 className={cn(
                   'rounded-md px-4 py-2 text-sm font-medium transition-colors',
-                  tab === t.id ? 'bg-card-2 text-foreground' : 'text-muted-foreground hover:text-foreground',
+                  tab === item.id ? 'bg-card-2 text-foreground' : 'text-muted-foreground hover:text-foreground',
                 )}
-                aria-current={tab === t.id ? 'page' : undefined}
+                aria-current={tab === item.id ? 'page' : undefined}
               >
-                {t.label}
+                {t(item.id)}
               </button>
             ))}
+            <LanguageSwitcher className="ml-2 mr-2" />
             <ActionButton
               variant="secondary"
-              className="ml-3 min-h-[42px] px-4 text-xs"
+              className="ml-1 min-h-[42px] px-4 text-xs"
               onClick={() => setConfirmNew(true)}
             >
               <Plus className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
-              New Recommendation
+              {t('newRecommendation')}
             </ActionButton>
           </nav>
 
@@ -97,19 +101,22 @@ export function Platform() {
         {menuOpen ? (
           <div className="border-t border-border py-3 md:hidden">
             <nav className="mx-auto flex max-w-7xl flex-col gap-1">
-              {TABS.map((t) => (
+              <div className="px-4 py-2">
+                <LanguageSwitcher />
+              </div>
+              {TABS.map((item) => (
                 <button
-                  key={t.id}
+                  key={item.id}
                   onClick={() => {
-                    setTab(t.id)
+                    setTab(item.id)
                     setMenuOpen(false)
                   }}
                   className={cn(
                     'rounded-md px-4 py-3 text-left text-sm font-medium transition-colors',
-                    tab === t.id ? 'bg-card-2 text-foreground' : 'text-muted-foreground',
+                    tab === item.id ? 'bg-card-2 text-foreground' : 'text-muted-foreground',
                   )}
                 >
-                  {t.label}
+                  {t(item.id)}
                 </button>
               ))}
               <ActionButton
@@ -121,7 +128,7 @@ export function Platform() {
                 }}
               >
                 <Plus className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
-                New Recommendation
+                {t('newRecommendation')}
               </ActionButton>
             </nav>
           </div>
@@ -163,14 +170,14 @@ export function Platform() {
         >
           <div className="w-full max-w-md rounded-xl border border-border-strong bg-card-2 p-6 shadow-2xl">
             <h2 id="confirm-new-title" className="text-lg font-semibold">
-              Start a new security assessment?
+              {t('confirmResetTitle')}
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              This will clear your current objectives, system context, and generated recommendation.
+              {t('confirmResetDesc')}
             </p>
             <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
               <ActionButton variant="secondary" onClick={() => setConfirmNew(false)}>
-                Cancel
+                {t('cancel')}
               </ActionButton>
               <ActionButton
                 variant="primary"
@@ -179,7 +186,7 @@ export function Platform() {
                   setConfirmNew(false)
                 }}
               >
-                Start New
+                {t('reset')}
               </ActionButton>
             </div>
           </div>
