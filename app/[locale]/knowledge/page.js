@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   Shield, Hash, Radio, Key, Lock, Fingerprint, Layers, Shuffle,
   Settings, Factory, ExternalLink, AlertTriangle, CheckCircle2, Search,
+  Zap, Activity, Car, Plug, HardDrive, MonitorPlay, Wifi, Network, Bluetooth, Cpu, Battery
 } from "lucide-react";
 
 const ICON_MAP = {
@@ -17,6 +18,17 @@ const ICON_MAP = {
   RNG: Shuffle,
   KeyManagement: Settings,
   HSMProvisioning: Factory,
+  EVCharging: Zap,
+  Diagnostics: Activity,
+  Immobilizer: Car,
+  V2G: Plug,
+  OTAStorage: HardDrive,
+  InfotainmentDRM: MonitorPlay,
+  Telemetry: Wifi,
+  Gateway: Network,
+  Bluetooth: Bluetooth,
+  SensorFusion: Cpu,
+  BatteryManagement: Battery,
 };
 
 const KB = {
@@ -110,6 +122,96 @@ const KB = {
     pqc: "Migrate provisioning key exchange to Kyber when tooling matures",
     risk: "medium",
   },
+  EVCharging: {
+    useCase: "EV Plug & Charge", algorithm: "TLS 1.2/1.3 + ECDSA",
+    rationale: "ISO 15118 dictates PKI-based mutual authentication between the EV and charging station to enable automated billing.",
+    keyLength: "256-bit", mode: "Mutual TLS",
+    lifespan: "Secure until ~2030", riskFlags: ["Certificate revocation lists (CRL) management is complex"],
+    standards: ["ISO 15118-2", "ISO 15118-20"],
+    pqc: "Transition to hybrid TLS 1.3 with Kyber + Dilithium certificates",
+    risk: "medium",
+  },
+  Diagnostics: {
+    useCase: "Diagnostic Access", algorithm: "Seed & Key (AES-128 or RSA)",
+    rationale: "UDS (Unified Diagnostic Services) requires security access (Service 0x27). Moving from static seeds to dynamic AES-based or asymmetric authentication is critical.",
+    keyLength: "128-bit (AES) / 2048-bit (RSA)", mode: "Challenge-Response",
+    lifespan: "Varies by OEM", riskFlags: ["Weak seeds or fixed keys lead to full ECU compromise"],
+    standards: ["ISO 14229", "ISO 21434"],
+    pqc: "Not an immediate priority, but asymmetric variants will need PQC eventually",
+    risk: "high",
+  },
+  Immobilizer: {
+    useCase: "Immobilizer", algorithm: "AES-128 or Proprietary Crypto",
+    rationale: "Transponder-based anti-theft systems rely on low-latency challenge-response. AES-128 provides adequate security within timing constraints.",
+    keyLength: "128-bit", mode: "Challenge-Response",
+    lifespan: "Secure beyond 2035", riskFlags: ["Relay attacks are common against weak LF/RF protocols"],
+    standards: ["Thatcham", "ISO 21434"],
+    pqc: "Symmetric algorithms generally resist quantum attacks",
+    risk: "low",
+  },
+  OTAStorage: {
+    useCase: "OTA Secure Storage", algorithm: "AES-256-XTS",
+    rationale: "Downloaded firmware updates must be stored securely before installation to prevent offline tampering or extraction.",
+    keyLength: "256-bit", mode: "Full Disk/Block Encryption",
+    lifespan: "Secure beyond 2040", riskFlags: ["Requires hardware binding to prevent key extraction"],
+    standards: ["NIST SP 800-38E", "UNECE R156"],
+    pqc: "XTS mode with AES-256 provides excellent quantum resistance",
+    risk: "low",
+  },
+  Bluetooth: {
+    useCase: "Phone as a Key (PaaK)", algorithm: "BLE Secure + ECDH",
+    rationale: "Smartphones used as vehicle keys rely on BLE security and UWB for localization, requiring strong pairing and Out-of-Band (OOB) key exchange.",
+    keyLength: "256-bit", mode: "Authenticated Key Agreement",
+    lifespan: "Secure until ~2030", riskFlags: ["Relay attacks via BLE bridging; UWB distance bounding is necessary"],
+    standards: ["Bluetooth SIG", "CCC Digital Key"],
+    pqc: "Will require PQC integration into future CCC and BLE standards",
+    risk: "high",
+  },
+  Gateway: {
+    useCase: "Gateway Routing", algorithm: "IPsec / MACsec",
+    rationale: "Central gateways route data between Ethernet and CAN/LIN domains. IPsec or MACsec provides domain-level isolation and payload encryption.",
+    keyLength: "128-bit / 256-bit", mode: "Network Layer Encryption",
+    lifespan: "Secure beyond 2035", riskFlags: ["High processing overhead requires hardware acceleration"],
+    standards: ["IEEE 802.1AE", "IETF IPsec"],
+    pqc: "IPsec IKEv2 needs migration to hybrid PQC key exchange",
+    risk: "medium",
+  },
+  BatteryManagement: {
+    useCase: "BMS Integrity", algorithm: "AES-CMAC or SHA-256",
+    rationale: "Battery state-of-health and cell balancing data must be tamper-proof to ensure safety and warranty validity.",
+    keyLength: "128-bit (AES)", mode: "Message Authentication",
+    lifespan: "Secure until ~2035", riskFlags: ["Counterfeit battery modules bypass safety checks"],
+    standards: ["ISO 26262", "ISO 21434"],
+    pqc: "Symmetric MACs provide sufficient quantum resistance",
+    risk: "low",
+  },
+  Telemetry: {
+    useCase: "Cloud Telemetry", algorithm: "TLS 1.3 + JWT",
+    rationale: "Continuous streaming of vehicle health and location data to the OEM cloud requires efficient transport layer security and token-based auth.",
+    keyLength: "256-bit", mode: "Transport Encryption",
+    lifespan: "Secure until ~2030", riskFlags: ["Data privacy concerns if telemetry is poorly anonymized"],
+    standards: ["IETF TLS 1.3", "GDPR/CCPA"],
+    pqc: "Transition to PQC TLS in future vehicle architectures",
+    risk: "medium",
+  },
+  SensorFusion: {
+    useCase: "Sensor Fusion Data", algorithm: "AES-GCM",
+    rationale: "High-bandwidth data from Lidar and Radar sensors to ADAS ECUs must be authenticated to prevent spoofing of obstacles.",
+    keyLength: "128-bit", mode: "Authenticated Encryption",
+    lifespan: "Secure beyond 2035", riskFlags: ["Latency limits strict crypto overhead"],
+    standards: ["ISO 21434", "AUTOSAR"],
+    pqc: "Symmetric algorithms generally resist quantum attacks",
+    risk: "low",
+  },
+  V2G: {
+    useCase: "Vehicle to Grid", algorithm: "TLS 1.2/1.3 + PKI",
+    rationale: "Bidirectional energy transfer requires strong mutual authentication with grid infrastructure to prevent unauthorized discharge and grid destabilization.",
+    keyLength: "256-bit", mode: "Mutual Authentication",
+    lifespan: "Secure until ~2030", riskFlags: ["Complex multi-actor PKI ecosystem"],
+    standards: ["ISO 15118-20"],
+    pqc: "Transition to PQC certificates before mass grid integration",
+    risk: "high",
+  },
 };
 
 export default function KnowledgePage() {
@@ -143,7 +245,7 @@ export default function KnowledgePage() {
             <span className="gradient-text">Knowledge Base</span>
           </h1>
           <p className="text-[var(--text-secondary)] max-w-lg mx-auto">
-            Explore all 10 cryptographic use case categories. Click a card to reveal algorithm details, standards, and PQC migration paths.
+            Explore {Object.keys(KB).length} cryptographic use case categories. Click a card to reveal algorithm details, standards, and PQC migration paths.
           </p>
         </div>
 
@@ -200,13 +302,13 @@ export default function KnowledgePage() {
                       <div className="pt-1 border-t border-[var(--border-glass)]">
                         <p className="text-[var(--accent-purple)]"><strong>PQC:</strong> {data.pqc}</p>
                       </div>
-                      <div className="flex flex-wrap gap-1">
+                      <div className="flex flex-wrap gap-1 mt-1">
                         {data.standards.map((s, i) => (
                           <span key={i} className="text-[9px] px-1.5 py-0.5 rounded border border-[var(--border-glass)] text-[var(--text-muted)]">{s}</span>
                         ))}
                       </div>
                     </div>
-                    <p className="text-[10px] text-[var(--text-muted)] mt-auto">Click to flip back</p>
+                    <p className="text-[10px] text-[var(--text-muted)] mt-auto pt-2">Click to flip back</p>
                   </div>
                 </div>
               </div>
